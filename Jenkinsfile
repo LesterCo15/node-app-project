@@ -20,7 +20,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh 'docker build -t lesterco/my-app:1.0 .'
                         sh 'echo $PASS | docker login -u $USER --password-stdin'
-                        sh 'docker push lesterco/my-app:1.0'
+                        sh 'docker push lesterco/my-app:1.1'
                 }
             }
         }
@@ -29,11 +29,13 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying the application...'
+                    sh 'docker run -p 3000:3000 lesterco/my-app:1.1' 
                 }
             }
     }
 }
 }
+
 
 
 
