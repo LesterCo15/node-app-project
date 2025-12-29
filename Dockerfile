@@ -8,4 +8,5 @@ RUN npm install --only=production
 COPY . .
 
 EXPOSE 3000
+WORKDIR /app/src
 CMD ["npm", "start"]
