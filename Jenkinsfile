@@ -29,12 +29,12 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying the application...'
-                    sh 'docker run -p 3000:3000 lesterco/my-app:1.0' 
                 }
             }
     }
 }
 }
+
 
 
 
