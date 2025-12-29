@@ -6,19 +6,34 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                echo 'Installing dependencies .....'
-                sh 'npm install'
-                sh 'ls -l package-lock.json'
+                script {
+                    echo 'Installing dependencies .....'
+                    sh 'npm install'
+                    sh 'ls -l package-lock.json'
+                }
             }
         }
         stage("image") {
             steps {
-                echo 'Building the image...'
-                sh 'docker build -t my-app:1.0 .'
+                script {
+                    echo 'Building the image...'
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER'])
+                    sh 'docker build -t lesterco/my-app:1.0 .'
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
+                    sh 'docker push lesterco/my-app:1.0'
+                }
             }
         }
     }
+        stage("deploy") {
+            steps {
+                script {
+                    echo 'Deploying the application...'
+                }
+            }
+    }
 }
+
 
 
 
