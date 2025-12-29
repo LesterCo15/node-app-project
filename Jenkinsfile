@@ -18,7 +18,7 @@ pipeline {
                 script {
                     echo 'Building the image...'
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'docker build -t lesterco/my-app:1.0 .'
+                        sh 'docker build -t lesterco/my-app:1.1 .'
                         sh 'echo $PASS | docker login -u $USER --password-stdin'
                         sh 'docker push lesterco/my-app:1.1'
                 }
@@ -35,6 +35,7 @@ pipeline {
     }
 }
 }
+
 
 
 
