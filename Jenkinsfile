@@ -6,12 +6,14 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                echo 'Installing depenencies .....'
+                echo 'Installing dependencies .....'
                 sh 'npm install'
+                sh 'ls -l package-lock.json'
             }
         }
     }
 }
+
 
 
 
